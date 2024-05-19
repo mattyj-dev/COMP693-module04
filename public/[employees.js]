@@ -1,0 +1,263 @@
+import EmployeeAdd from './EmployeeAdd.js';
+// // const initialEmployees = [
+// //     {
+// //         id: 1,
+// //         name: 'Matthew Juleson',
+// //         ext: '1114',
+// //         email: 'mjuleson@vectacorp.com',
+// //         title: 'Chief Executive Officer',
+// //         dateHired: new Date('2015-09-01'),
+// //         isEmployed: true,
+// //     },
+// //     {
+// //         id: 2,
+// //         name: 'Annette Miner',
+// //         ext: '1115',
+// //         email: 'aminer@vectacorp.com',
+// //         title: 'Chief Technology Officer',
+// //         dateHired: new Date('2021-09-01'),
+// //         isEmployed: true,
+// //     },
+// //     {
+// //         id: 3,
+// //         name: 'Joel Firks',
+// //         ext: '1116',
+// //         email: 'jfirks@vectacorp.com',
+// //         title: 'Intern',
+// //         dateHired: new Date('1995-09-01'),
+// //         isEmployed: false,
+// //     },
+// //     {
+// //         id: 4,
+// //         name: 'Chris Roberts',
+// //         ext: '1117',
+// //         email: 'croberts@vectacorp.com',
+// //         title: 'Chief Typist',
+// //         dateHired: new Date('2000-09-01'),
+// //         isEmployed: true,
+// //     },
+// // ]
+
+// import { response } from "express"
+
+// class EmployeeFilter extends React.Component{
+//     render() {
+//         return (<div>This is a placeholder for the employee filter.</div>)
+//     }
+// }
+
+// function EmployeeTable(props) {
+//     const employeeRows = props.employees.map(employee => 
+//         <EmployeeRow key={employee._id} employee={employee} />)
+//     return (
+//         <table className="bordered-table">
+//             <thead>
+//                 <tr>
+//                     <th>Name</th>
+//                     <th>Extension</th>
+//                     <th>Email</th>
+//                     <th>Title</th>
+//                     <th>Date Hired</th>
+//                     <th>Currently Employed?</th>
+//                 </tr>
+//             </thead>
+//             <tbody>
+//                 {employeeRows}
+//             </tbody>
+//         </table>
+//     )
+// }
+
+// function EmployeeRow(props) {
+//     const employee = props.employee
+//     return (
+//     <tr>
+//         <td>{employee.name}</td>
+//         <td>{employee.ext}</td>
+//         <td>{employee.email}</td>
+//         <td>{employee.title}</td>
+//         <td>{employee.dateHired.toDateString()}</td>
+//         <td>{employee.currentlyEmployed ? 'Yes' : 'No'}</td>
+//     </tr>
+//     )
+// }
+
+// class EmployeeAdd extends React.Component {
+//     constructor() {
+//         super()
+//         this.handleSubmit = this.handleSubmit.bind(this)
+//     }
+
+// handleSubmit(e) {
+//     e.preventDefault()
+//     const form = document.forms.employeeAdd
+//     const employee = {
+//         name: form.name.value,
+//         ext: form.ext.value,
+//         email: form.email.value,
+//         title: form.title.value,
+//         dateHired: new Date(),
+//         isEmployed: true,
+//     }
+//     this.props.createEmployee(employee)
+//     form.name.value = ''
+//     form.ext.value = ''
+//     form.email.value = ''
+//     form.title.value = ''
+// }
+
+//     render() {
+//         return (
+//             <form name="employeeAdd" onSubmit={this.handleSubmit}>
+//                 Name: <input type="text" name="name" /><br/>
+//                 Extension: <input type="text" name="ext" /><br/>
+//                 Email: <input type="text" name="email" /><br/>
+//                 Title: <input type="text" name="title" /><br/>
+//                 <button>Add</button>
+//             </form>
+//         )
+//     }
+// }
+
+// class EmployeeList extends React.Component {
+
+//     constructor() {
+//         super()
+//         this.state = { employees: [] }
+//         this.createEmployee = this.createEmployee.bind(this)
+//     }
+//     componentDidMount() {
+//         this.loadData()
+//     }
+
+//     loadData() {
+//         fetch('/api/employees')
+//         .then(response => response.json())
+//         .then(data => {
+//             console.log('Total count of employees;', data.count)
+//             data.employees.forEach(employee => {
+//                 employee.dateHired = new Date(employee.dateHired)
+//             })
+//             this.setState( {employees: data.employees})
+//         })
+//         .catch(err => {console.log(err)})
+//     }
+
+//     createEmployee(employee) { // Added employee parameter
+//         employee.id = this.state.employees.length + 1
+//         const newEmployeeList = this.state.employees.slice()
+//         newEmployeeList.push(employee)
+//         this.setState({ employees: newEmployeeList })
+//     }
+
+//     render() {
+//         return (
+//     <React.Fragment>
+//         <h1>Employee Management Application</h1>
+//         <EmployeeFilter />
+//         <hr />
+//         <EmployeeTable employees = {this.state.employees}/>
+//         <hr />
+//         <EmployeeAdd createEmployee = {this.createEmployee}/>
+//         </React.Fragment>
+//     )
+//     }
+// }
+
+// ReactDOM.render(
+//     <React.StrictMode>
+//         <EmployeeList />
+//     </React.StrictMode>, 
+//     document.getElementById('content')
+// )
+
+import { response } from 'express';
+import React from 'react';
+import ReactDOM from 'react-dom';
+class EmployeeFilter extends React.Component {
+  render() {
+    return /*#__PURE__*/React.createElement("div", null, "This is a placeholder for the employee filter.");
+  }
+}
+function EmployeeTable(props) {
+  const employeeRows = props.employees.map(employee => /*#__PURE__*/React.createElement(EmployeeRow, {
+    key: employee.id,
+    employee: employee,
+    deleteEmployee: props.deleteEmployee
+  }));
+  return /*#__PURE__*/React.createElement("table", {
+    className: "bordered-table"
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Name"), /*#__PURE__*/React.createElement("th", null, "Extension"), /*#__PURE__*/React.createElement("th", null, "Email"), /*#__PURE__*/React.createElement("th", null, "Title"), /*#__PURE__*/React.createElement("th", null, "Date Hired"), /*#__PURE__*/React.createElement("th", null, "Currently Employed?"), /*#__PURE__*/React.createElement("th", null))), /*#__PURE__*/React.createElement("tbody", null, employeeRows));
+}
+function EmployeeRow(props) {
+  function onDeleteClick() {
+    props.deleteEmployee(props.employee._id);
+  }
+  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, props.employee.name), /*#__PURE__*/React.createElement("td", null, props.employee.extension), /*#__PURE__*/React.createElement("td", null, props.employee.email), /*#__PURE__*/React.createElement("td", null, props.employee.title), /*#__PURE__*/React.createElement("td", null, props.employee.dateHired.toDateString()), /*#__PURE__*/React.createElement("td", null, props.employee.currentlyEmployed ? 'Yes' : 'No'), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+    onClick: onDeleteClick
+  }, "DELETE")));
+}
+class EmployeeList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      employees: []
+    };
+    this.createEmployee = this.createEmployee.bind(this);
+    this.deleteEmployee = this.deleteEmployee.bind(this);
+  }
+  componentDidMount() {
+    this.loadData();
+  }
+  loadData() {
+    fetch('/api/employees').then(response => response.json()).then(data => {
+      console.log('Total count of employees:', data.count);
+      data.employees.forEach(employee => {
+        employee.dateHired = new Date(employee.dateHired);
+      });
+      this.setState({
+        employees: data.employees
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+  createEmployee(employee) {
+    fetch('/api/employees', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(employee)
+    }).then(response => response.json()).then(newEmployee => {
+      newEmployee.employee.dateHired = new Date(newEmployee.employee.dateHired);
+      const newEmployees = this.state.employees.concat(newEmployee.employee);
+      this.setState({
+        employees: newEmployees
+      });
+      console.log('Total count of employees:', newEmployees.length);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
+  deleteEmployee(id) {
+    fetch(`/api/employees/${id}`, {
+      method: 'DELETE'
+    }).then(reponse => {
+      if (!response.ok) {
+        console.log('Failed to delete employee');
+      } else {
+        this.loadData();
+      }
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h1", null, "Employee Management Application"), /*#__PURE__*/React.createElement(EmployeeFilter, null), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeTable, {
+      employees: this.state.employees,
+      deleteEmployee: this.deleteEmployee
+    }), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(EmployeeAdd, {
+      createEmployee: this.createEmployee
+    }));
+  }
+}
+ReactDOM.render( /*#__PURE__*/React.createElement(React.StrictMode, null, /*#__PURE__*/React.createElement(EmployeeList, null)), document.getElementById('content'));
